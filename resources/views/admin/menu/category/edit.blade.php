@@ -25,10 +25,11 @@
 
           <div class="form-group mb-3">
             <label for="name">Nama</label>
-            <input type="text" name="name" id="name" value="{{ old('name', $category->name) }}" class="form-control" placeholder="Nama">
+            <input type="text" name="name" id="name" value="{{ old('name', $category->name) }}" class="form-control"
+                   placeholder="Nama">
 
             @error('name')
-              <span class="text-danger">{{ $message }}</span>
+            <span class="text-danger">{{ $message }}</span>
             @enderror
           </div>
 

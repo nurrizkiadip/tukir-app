@@ -25,13 +25,6 @@ Route::middleware(['auth'])->prefix('/admin')->name('admin.')->group(function() 
     Route::get('/dashboard', Admin\DashboardController::class)->name('dashboard');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-    // Category
-    Route::get('/category/create', [Admin\CategoryController::class, 'create'])->name('category.create');
-    Route::post('/category/store', [Admin\CategoryController::class, 'store'])->name('category.store');
-    Route::get('/category/{category}/edit', [Admin\CategoryController::class, 'edit'])->name('category.edit');
-    Route::put('/category/{category}', [Admin\CategoryController::class, 'update'])->name('category.update');
-    Route::delete('/category/{category}', [Admin\CategoryController::class, 'destroy'])->name('category.destroy');
-
     // Menu
     Route::get('/menu/index', [Admin\MenuController::class, 'index'])->name('menu.index');
     Route::get('/menu/create', [Admin\MenuController::class, 'create'])->name('menu.create');
@@ -66,14 +59,14 @@ Route::middleware(['guest'])->name('guest.')->group(function() {
     Route::post('/login', [LoginController::class, 'authenticate'])->name('login.post');
     Route::get('/register', [RegisterController::class, 'index']);
     Route::post('/register', [RegisterController::class, 'store']);
-    
+
     Route::get('/', function () {
         $menus = Menu::with(['category'])->get();
         $menusGroupedByCat = $menus
             ->groupBy(fn($item) => strtolower($item->category->name));
         $events = Event::all();
         $testimonials = Testimonial::all();
-    
+
         return view('guest.index', [
             "title" => "Home",
             'menus' => $menus,
@@ -82,14 +75,14 @@ Route::middleware(['guest'])->name('guest.')->group(function() {
             'testimonials' => $testimonials
         ]);
     })->name('index');
-    
+
     Route::get('/home', function () {
         $menus = Menu::with(['category'])->get();
         $menusGroupedByCat = $menus
             ->groupBy(fn($item) => strtolower($item->category->name));
         $events = Event::all();
         $testimonials = Testimonial::all();
-    
+
         return view('guest.index', [
             "title" => "Home",
             'menus' => $menus,
@@ -98,19 +91,19 @@ Route::middleware(['guest'])->name('guest.')->group(function() {
             'testimonials' => $testimonials
         ]);
     })->name('home');
-    
+
     Route::get('/about', function () {
         return view('guest.about', [
             "title" => "About"
         ]);
     })->name('about');
-    
+
     Route::get('/faq', function () {
         return view('guest.faq', [
             "title" => "FAQ"
         ]);
     })->name('faq');
-    
+
     /**
      * DIHAPUS
      */
@@ -122,7 +115,7 @@ Route::middleware(['guest'])->name('guest.')->group(function() {
             "testimonials" => $testimonials,
         ]);
     })->name('food');
-    
+
     Route::get('/menu', function () {
         $menus = Menu::with(['category'])->get()
             ->groupBy(fn($item) => strtolower($item->category->name));
@@ -132,7 +125,7 @@ Route::middleware(['guest'])->name('guest.')->group(function() {
             'menus' => $menus,
         ]);
     })->name('menu');
-    
+
     Route::get('/gallery', function () {
         $menus = Menu::with(['category'])->get()
             ->groupBy(fn($item) => strtolower($item->category->name));

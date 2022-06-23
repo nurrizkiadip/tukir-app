@@ -43,10 +43,10 @@
             <li>Syukuran</li>
             <li>Perayaan</li>
             <li>Pesta & Lainnya</li>
-          </ul> 
+          </ul>
         </div>
       </div>
     </div>
-  </section> 
+  </section>
 @endsection
 

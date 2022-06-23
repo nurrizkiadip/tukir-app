@@ -23,15 +23,15 @@
 @endpush
 
 @section('header-content')
-<div class="content-header">
-  <div class="container-fluid">
-    <div class="row mb-2">
-      <div class="col">
-        <h1 class="m-0">Tambah Event</h1>
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col">
+          <h1 class="m-0">Tambah Event</h1>
+        </div>
       </div>
     </div>
   </div>
-</div>
 @endsection
 
 @section('main-content')
@@ -43,22 +43,23 @@
 
           <div class="form-group mb-3">
             <label for="title">Judul</label>
-            <input type="text" name="title" id="title" value="{{ old('title') }}" class="form-control" placeholder="Judul Event">
+            <input type="text" name="title" id="title" value="{{ old('title') }}" class="form-control"
+                   placeholder="Judul Event">
 
             @error('title')
-              <span class="text-danger">{{ $message }}</span>
+            <span class="text-danger">{{ $message }}</span>
             @enderror
           </div>
 
           <div class="form-group mb-3">
             <label for="description">Deskripsi</label>
             <textarea name="description" id="description" class="form-control"
-              placeholder="Deskripsi" rows="3" style="resize: vertical">
+                      placeholder="Deskripsi" rows="3" style="resize: vertical">
               {{ old('description') }}
             </textarea>
 
             @error('description')
-              <span class="text-danger">{{ $message }}</span>
+            <span class="text-danger">{{ $message }}</span>
             @enderror
           </div>
 
@@ -72,10 +73,10 @@
             </div>
 
             <input type="file" id="photo" name="photo" class="form-control-file" placeholder="Foto"
-              accept="image/png, image/jpeg">
+                   accept="image/png, image/jpeg">
 
             @error('photo')
-              <span class="text-danger">{{ $message }}</span>
+            <span class="text-danger">{{ $message }}</span>
             @enderror
           </div>
 
@@ -96,11 +97,11 @@
   <script>
     $('document').ready(function () {
       const imagePreview = document.getElementById('image-preview');
-      
+
       $('input#photo').change((event) => {
         const photo = event.target.files[0];
 
-        if (! photo) return;
+        if (!photo) return;
 
         const reader = new FileReader();
         reader.onload = (e) => {

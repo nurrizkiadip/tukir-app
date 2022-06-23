@@ -8,31 +8,31 @@ use App\Models\User;
 
 class RegisterController extends Controller
 {
-    public function index()
-    {
-    return view('register.index',[
-        'title' => 'Register',
-        'active' => 'register'
+  public function index()
+  {
+    return view('register.index', [
+      'title' => 'Register',
+      'active' => 'register'
     ]);
-    }
+  }
 
-    public function store(Request $request)
-    {
+  public function store(Request $request)
+  {
     $validatedData = $request->validate([
-        'name' => 'required|max:255',
-        'username' => ['required', 'min:3', 'max:255', 'unique:users'],
-        'email' =>'required |email:dns|unique:users',
-        'password' => 'required |min:5|max:255'
-     ]);
-    
-     $validatedData['password'] = bcrypt($validatedData['password']); 
+      'name' => 'required|max:255',
+      'username' => ['required', 'min:3', 'max:255', 'unique:users'],
+      'email' => 'required |email:dns|unique:users',
+      'password' => 'required |min:5|max:255'
+    ]);
 
-     User::create( $validatedData);
+    $validatedData['password'] = bcrypt($validatedData['password']);
 
-     $request->session()('success', 'Registration successfull! Please login');
+    User::create($validatedData);
 
-     return redirect('/login');
+    $request->session()('success', 'Registration successfull! Please login');
 
-    }
+    return redirect('/login');
+
+  }
 }
 

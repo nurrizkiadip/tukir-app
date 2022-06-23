@@ -34,28 +34,29 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col">
-        <form action="{{ route('admin.testimonial.update', [$testimonial->id]) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.testimonial.update', [$testimonial->id]) }}" method="POST"
+              enctype="multipart/form-data">
           @csrf
           @method('PUT')
 
           <div class="form-group mb-3">
             <label for="name">Nama</label>
-            <input type="text" name="name" id="name" value="{{ old('name', $testimonial->name) }}" 
-              class="form-control" placeholder="Nama">
+            <input type="text" name="name" id="name" value="{{ old('name', $testimonial->name) }}"
+                   class="form-control" placeholder="Nama">
 
             @error('name')
-              <span class="text-danger">{{ $message }}</span>
+            <span class="text-danger">{{ $message }}</span>
             @enderror
           </div>
 
           <div class="form-group mb-3">
             <label for="comment">Komentar</label>
             <textarea type="number" name="comment" id="comment"
-              class="form-control" placeholder="Komentar"
+                      class="form-control" placeholder="Komentar"
             >{{ old('comment', $testimonial->comment) }}</textarea>
 
             @error('comment')
-              <span class="text-danger">{{ $message }}</span>
+            <span class="text-danger">{{ $message }}</span>
             @enderror
           </div>
 
@@ -67,12 +68,12 @@
             <div class="image-preview" hidden>
               <span id="image-preview"></span>
             </div>
-      
-            <input type="file" id="photo" name="photo" class="form-control-file" 
-              placeholder="Foto" accept="image/png, image/jpeg">
-      
+
+            <input type="file" id="photo" name="photo" class="form-control-file"
+                   placeholder="Foto" accept="image/png, image/jpeg">
+
             @error('photo')
-              <span class="text-danger">{{ $message }}</span>
+            <span class="text-danger">{{ $message }}</span>
             @enderror
           </div>
 
@@ -94,15 +95,15 @@
 
       // Show Current Image
       @if (str($testimonial->customer_photo_path)->trim()->isNotEmpty && is_file_exists($testimonial->customer_photo_path))
-        imagePreview.parentElement.removeAttribute('hidden');
-        imagePreview.style.backgroundImage = `url('{{ Storage::url($testimonial->customer_photo_path) }}')`;
+      imagePreview.parentElement.removeAttribute('hidden');
+      imagePreview.style.backgroundImage = `url('{{ Storage::url($testimonial->customer_photo_path) }}')`;
       @endif
 
-      // Show New Selected Image 
+      // Show New Selected Image
       $('#photo').change((event) => {
         const photo = event.target.files[0];
 
-        if (! photo) return;
+        if (!photo) return;
 
         const reader = new FileReader();
         reader.onload = (e) => {

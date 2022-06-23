@@ -44,43 +44,46 @@
 
           <div class="form-group mb-3">
             <label for="name">Nama</label>
-            <input type="text" name="name" id="name" value="{{ old('name', $menu->name) }}" class="form-control" placeholder="Nama">
+            <input type="text" name="name" id="name" value="{{ old('name', $menu->name) }}" class="form-control"
+                   placeholder="Nama">
 
             @error('name')
-              <span class="text-danger">{{ $message }}</span>
+            <span class="text-danger">{{ $message }}</span>
             @enderror
           </div>
 
           <div class="form-group mb-3">
             <label for="price">Harga</label>
-            <input type="number" name="price" id="price" value="{{ old('price', $menu->price) }}" class="form-control" placeholder="Harga">
+            <input type="number" name="price" id="price" value="{{ old('price', $menu->price) }}" class="form-control"
+                   placeholder="Harga">
 
             @error('price')
-              <span class="text-danger">{{ $message }}</span>
+            <span class="text-danger">{{ $message }}</span>
             @enderror
           </div>
 
           <div class="form-group mb-3">
             <label for="name">Deskripsi</label>
-            <input type="text" name="description" id="name" value="{{ old('description', $menu->description) }}" class="form-control" placeholder="Deskripsi">
+            <input type="text" name="description" id="name" value="{{ old('description', $menu->description) }}"
+                   class="form-control" placeholder="Deskripsi">
             @error('description')
-              <span class="text-danger">{{ $message }}</span>
+            <span class="text-danger">{{ $message }}</span>
             @enderror
           </div>
 
           <div class="form-group mb-3">
             <label for="category">Kategori</label>
-              
+
             <select class="form-control select2bs4" name="category" id="category" style="width: 100%;">
               @foreach ($categories as $category)
                 <option value="{{ $category->id }}" {{ $category->id === (int)$menu->category_id ? 'selected' : '' }}>
-                    {{ $category->name }}
+                  {{ $category->name }}
                 </option>
               @endforeach
             </select>
 
             @error('category')
-                <span class="text-danger">{{ $message }}</span>
+            <span class="text-danger">{{ $message }}</span>
             @enderror
           </div>
 
@@ -92,10 +95,10 @@
             <div class="image-preview" hidden>
               <span id="image-preview"></span>
             </div>
-            <input type="file" id="photo" name="photo" class="form-control-file" 
-              placeholder="Foto" accept="image/png, image/jpeg">
+            <input type="file" id="photo" name="photo" class="form-control-file"
+                   placeholder="Foto" accept="image/png, image/jpeg">
             @error('photo')
-              <span class="text-danger">{{ $message }}</span>
+            <span class="text-danger">{{ $message }}</span>
             @enderror
           </div>
 
@@ -112,21 +115,21 @@
 @push('script')
   <!-- Select2 -->
   <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
-  
-  <script>  
+
+  <script>
     $('document').ready(function () {
       const imagePreview = document.getElementById('image-preview');
 
       // Show Current Image
       @if (is_file_exists($menu->photo_path))
-        imagePreview.parentElement.removeAttribute('hidden');
-        imagePreview.style.backgroundImage = `url('{{ Storage::url($menu->photo_path) }}')`;
+      imagePreview.parentElement.removeAttribute('hidden');
+      imagePreview.style.backgroundImage = `url('{{ Storage::url($menu->photo_path) }}')`;
       @endif
 
       $('#photo').change((event) => {
         const photo = event.target.files[0];
 
-        if (! photo) return;
+        if (!photo) return;
 
         const reader = new FileReader();
         reader.onload = (e) => {

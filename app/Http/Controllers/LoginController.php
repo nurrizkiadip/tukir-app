@@ -8,40 +8,40 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    public function index()
-    {
-        return view('guest.login.index', [
-            'title' => 'Login',
-            'active' =>'login',
-        ]);
+  public function index()
+  {
+    return view('guest.login.index', [
+      'title' => 'Login',
+      'active' => 'login',
+    ]);
+  }
+
+  public function authenticate(Request $request)
+  {
+    $credentials = $request->validate([
+      'email' => 'required|email:dns',
+      'password' => 'required'
+    ]);
+
+    if (Auth::attempt($credentials)) {
+      $request->session()->regenerate();
+      return redirect()->intended('/admin/dashboard');
     }
 
-    public function authenticate(Request $request)
-    {
-        $credentials = $request->validate([
-            'email' => 'required|email:dns',
-            'password'=> 'required'
-        ]);
+    return back()->with('loginError', 'Login failed!');
+  }
 
-        if(Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended('/admin/dashboard');
-        }
+  public function logout()
+  {
+    Auth::logout();
 
-        return back()->with('loginError', 'Login failed!');
-    }
+    request()->session()->invalidate();
 
-    public function logout()
-    {
-        Auth::logout();
+    request()->session()->regenerateToken();
 
-        request()->session()->invalidate();
-
-        request()->session()->regenerateToken();
-
-        return to_route('guest.login')->with([
-            "status" => "success",
-            "message" => "Berhasil logout",
-        ]);
-    }
+    return to_route('guest.login')->with([
+      "status" => "success",
+      "message" => "Berhasil logout",
+    ]);
+  }
 }
